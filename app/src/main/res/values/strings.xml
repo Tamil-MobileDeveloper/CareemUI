@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CareemUI</string>
+    <string name="googleID">AIzaSyCSfYHSYenhD0F0f1Vglno1AKwY5d0URcs</string>
+    <string name="select_pickup_location">Select pickup location</string>
+    <string name="select_drop_off_location">Select dropoff location</string>
+    <string name="confirm_pickup">Confirm Pickup</string>
+    <string name="search_for_location">Search for a location</string>
+
+    <string name="current_location">Current location</string>
+    <string name="pickup_location">Pickup location</string>
+    <string name="drop_off_location">Dropoff location</string>
+    <string name="where_do_want_go">Where do you want to go?</string>
+    <string name="add_drop_off">Add dropoff</string>
+    <string name="skip">Skip</string>
+</resources>
