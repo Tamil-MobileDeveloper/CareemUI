@@ -12,4 +12,11 @@
     <string name="where_do_want_go">Where do you want to go?</string>
     <string name="add_drop_off">Add dropoff</string>
     <string name="skip">Skip</string>
+
+    <string name="tv_title">Select Your Ride</string>
+    <string name="name">Max</string>
+    <string name="specification">rides upto 4 people</string>
+    <string name="time">3 mins</string>
+    <string name="carModel">CarModel</string>
+
 </resources>
