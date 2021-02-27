@@ -13,3 +13,14 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.idea/dictionaries/admin.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/compiler.xml
+/app/src/androidTest/java/com/example/careemui/ExampleInstrumentedTest.kt
+/app/src/test/java/com/example/careemui/ExampleUnitTest.kt
+/.idea/gradle.xml
+/gradlew
+/gradlew.bat
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/codeStyles/Project.xml
