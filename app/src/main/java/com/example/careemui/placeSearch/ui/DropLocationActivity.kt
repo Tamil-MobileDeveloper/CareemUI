@@ -12,6 +12,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.careemui.R
+import com.example.careemui.booking.BookingActivity
 import com.example.careemui.databinding.ActivityDropLocationBinding
 import com.example.careemui.placeSearch.*
 import com.example.careemui.placeSearch.`interface`.OnGeoCodeResult
@@ -78,6 +79,22 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
             fabBack.setOnClickListener { finish() }
             fabCurrentLocation.setOnClickListener {
                 getLastKnownLocationAndSetMarker()
+            }
+            btnConfirmLocation.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@DropLocationActivity,
+                        BookingActivity::class.java
+                    )
+                )
+            }
+            btnSkip.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@DropLocationActivity,
+                        BookingActivity::class.java
+                    )
+                )
             }
         }
     }
@@ -267,7 +284,6 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
             it.setOnCameraMoveStartedListener(this)
             setMarkerForPickUp()
         }
-
     }
 
     override fun onCameraIdle() {

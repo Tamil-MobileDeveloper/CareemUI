@@ -14,4 +14,5 @@
 
     <color name="text_color_light">#a2a2a2</color>
     <color name="green">#4CAF50</color>
+    <color name="transparent">#88666666</color>
 </resources>
