@@ -13,10 +13,10 @@
     <string name="add_drop_off">Add dropoff</string>
     <string name="skip">Skip</string>
 
-    <string name="tv_title">Select Your Ride</string>
+    <string name="select_your_ride">Select Your Ride</string>
     <string name="name">Max</string>
-    <string name="specification">rides upto 4 people</string>
-    <string name="time">3 mins</string>
+    <string name="specification">rides up to 4 people</string>
+    <string name="time">3 min(s)</string>
     <string name="carModel">CarModel</string>
 
 </resources>

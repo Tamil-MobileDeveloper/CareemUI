@@ -86,9 +86,9 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dp16"
                 android:paddingVertical="@dimen/dp6"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tvDropAddress"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvDropAddress"
+                app:layout_constraintTop_toTopOf="@id/tvDropLabel"
                 app:srcCompat="@drawable/ic_pick_up_filled"
                 app:tint="@color/green" />
 
@@ -137,24 +137,45 @@
                 app:layout_constraintTop_toBottomOf="@id/tvPickUpAddress" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDropAddress"
+                android:id="@+id/tvDropLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:focusable="false"
-                android:hint="@string/where_do_want_go"
+                android:hint="@string/select_drop_off_location"
                 android:maxLines="1"
-                android:paddingVertical="@dimen/dp10"
                 android:paddingEnd="@dimen/dp24"
+                android:paddingBottom="@dimen/dp4"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey300"
                 android:textSize="@dimen/sp20"
-                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/tvDropAddress"
                 app:layout_constraintEnd_toStartOf="@id/ivDropSearch"
                 app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
-                app:layout_constraintTop_toBottomOf="@id/viewSeparator" />
+                app:layout_constraintTop_toBottomOf="@id/viewSeparator"
+                app:layout_constraintVertical_bias="1"
+                tools:text="" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDropAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:textColor="@color/quantum_grey300"
+                android:textSize="@dimen/sp14"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ivDropSearch"
+                app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road"
+                tools:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivDropSearch"
@@ -164,15 +185,9 @@
                 android:padding="@dimen/dp8"
                 app:layout_constraintBottom_toBottomOf="@id/tvDropAddress"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvDropAddress"
+                app:layout_constraintTop_toTopOf="@id/tvDropLabel"
                 app:srcCompat="@drawable/ic_search"
                 app:tint="@color/quantum_grey300" />
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/groupDropLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="tvDropAddress,ivDropSearch" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -231,20 +246,18 @@
         android:id="@+id/ivDropLocationPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp30"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_location_pin"
+        app:srcCompat="@drawable/ic_pick_up_filled"
         tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressAddress"
         android:layout_width="@dimen/dp60"
         android:layout_height="@dimen/dp60"
-        android:layout_marginBottom="@dimen/dp30"
         android:visibility="gone"
         app:indicatorColor="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"

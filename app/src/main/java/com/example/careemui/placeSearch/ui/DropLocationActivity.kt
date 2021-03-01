@@ -12,6 +12,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.careemui.R
+import com.example.careemui.booking.ARG_DROP_DETAIL
+import com.example.careemui.booking.ARG_PICK_UP_DETAIL
 import com.example.careemui.booking.BookingActivity
 import com.example.careemui.databinding.ActivityDropLocationBinding
 import com.example.careemui.placeSearch.*
@@ -21,10 +23,7 @@ import com.example.careemui.placeSearch.utils.resetCameraBearing
 import com.example.careemui.placeSearch.utils.updateCameraBearing
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.libraries.maps.CameraUpdateFactory
-import com.google.android.libraries.maps.GoogleMap
-import com.google.android.libraries.maps.OnMapReadyCallback
-import com.google.android.libraries.maps.SupportMapFragment
+import com.google.android.libraries.maps.*
 import com.google.android.libraries.maps.model.*
 
 private const val REQUEST_LOCATION_SEARCH = 124
@@ -62,7 +61,7 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onResume() {
         super.onResume()
         with(binding) {
-            tvDropAddress.setOnClickListener {
+            tvDropLabel.setOnClickListener {
                 startActivityForResult(
                     Intent(
                         this@DropLocationActivity,
@@ -75,7 +74,8 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
                     REQUEST_LOCATION_SEARCH
                 )
             }
-            ivDropSearch.setOnClickListener { tvDropAddress.performClick() }
+            ivDropSearch.setOnClickListener { tvDropLabel.performClick() }
+            tvDropAddress.setOnClickListener { tvDropLabel.performClick() }
             fabBack.setOnClickListener { finish() }
             fabCurrentLocation.setOnClickListener {
                 getLastKnownLocationAndSetMarker()
@@ -93,7 +93,12 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
                     Intent(
                         this@DropLocationActivity,
                         BookingActivity::class.java
-                    )
+                    ).apply {
+                        putExtras(Bundle().apply {
+                            putParcelable(ARG_PICK_UP_DETAIL, placeDetail)
+                            putParcelable(ARG_DROP_DETAIL, dropPlaceDetail)
+                        })
+                    }
                 )
             }
         }
@@ -112,7 +117,6 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     private fun showAddressFetchingLoader() {
-        binding.ivDropLocationPin.visibility = View.GONE
         binding.progressAddress.visibility = View.VISIBLE
     }
 
@@ -121,27 +125,25 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     private fun setMarkerForLocation(latLng: LatLng, moveCameraToPosition: Boolean = false) {
-        dropOffMarker?.remove()
-        mMap?.let {
-            dropOffMarker = it.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin))
-            )
-            if (moveCameraToPosition)
-                it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
-        }
+        if (moveCameraToPosition)
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
     }
 
     private fun setMarkerForPickUp() {
         placeDetail?.let {
             val latLng = LatLng(it.latitude, it.longitude)
-            mMap?.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pickup_location_pin))
-            )
-            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
+            mMap?.let { googleMap ->
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pickup_location_pin))
+                )
+
+                val pickUp = LatLng(latLng.latitude - 0.0004, latLng.longitude + 0.0004)
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pickUp, 17.0f))
+
+            }
+
         }
     }
 
@@ -152,7 +154,11 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     private fun updateSearchResult(placeDetail: PlacesDetail?) {
         placeDetail?.let {
             dropPlaceDetail = it
-            binding.tvDropAddress.text = it.address
+            binding.tvDropLabel.text = it.labelName
+            binding.tvDropAddress.apply {
+                text = it.address
+                visibility = View.VISIBLE
+            }
             setMarkerForLocation(LatLng(it.latitude, it.longitude), moveCameraToPosition = true)
 //            setLatLngBounds(it)
         }
@@ -204,28 +210,34 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     private fun getLastKnownLocationAndSetMarker() {
-        if (ActivityCompat.checkSelfPermission(
+        if (checkLocationPermission())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        if (it.latitude != 0.0 && it.longitude != 0.0) {
+                            val lastKnownLatLng =
+                                LatLng(it.latitude, it.longitude).also { latLng ->
+                                    dropLatLng = latLng
+                                }
+//                            setMarkerAndAnimate(lastKnownLatLng)
+                            getAddressForCurrentLocation()
+                        }
+                    }
+                }
+    }
+
+    private fun checkLocationPermission(): Boolean {
+        return if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestLocationPermission()
-            return
-        }
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-                location?.let {
-                    if (it.latitude != 0.0 && it.longitude != 0.0) {
-                        val lastKnownLatLng =
-                            LatLng(it.latitude, it.longitude).also { latLng -> dropLatLng = latLng }
-                        setMarkerAndAnimate(lastKnownLatLng)
-                        getAddressForCurrentLocation()
-                    }
-                }
-            }
+            false
+        } else true
     }
 
     private fun getAddressForCurrentLocation() {
@@ -282,6 +294,9 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
         mMap?.let {
             it.setOnCameraIdleListener(this)
             it.setOnCameraMoveStartedListener(this)
+            it.uiSettings.isMyLocationButtonEnabled = false
+            if (checkLocationPermission())
+                it.isMyLocationEnabled = true
             setMarkerForPickUp()
         }
     }
@@ -303,7 +318,6 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
         if (reason == GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE) {
             canGetAddress = true
             dropOffMarker?.remove()
-            binding.ivDropLocationPin.visibility = View.VISIBLE
         }
     }
 

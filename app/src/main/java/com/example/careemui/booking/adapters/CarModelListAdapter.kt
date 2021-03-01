@@ -1,14 +1,14 @@
 package com.example.careemui.booking.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.careemui.booking.BookingActivity
 import com.example.careemui.booking.data.CarModelData
 import com.example.careemui.databinding.LayoutCarModelListBinding
 
 class CarModelListAdapter(
-    private var context: BookingActivity,
+    private var context: Context,
     private var carModelList: ArrayList<CarModelData>?,
     private var mCheckedPosition: Int = -1
 ) : RecyclerView.Adapter<CarModelListAdapter.ViewHolder>() {

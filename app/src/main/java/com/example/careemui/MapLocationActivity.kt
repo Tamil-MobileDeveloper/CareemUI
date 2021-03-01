@@ -88,6 +88,11 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
                     }
                 )
             }
+
+            fabCurrentLocation.setOnClickListener {
+                mMap.clear()
+                getLastKnownLocationAndSetMarker()
+            }
         }
 
     }
@@ -101,6 +106,9 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         mMap = googleMap
         mMap.setOnCameraIdleListener(this)
         mMap.setOnCameraMoveStartedListener(this)
+        mMap.uiSettings.isMyLocationButtonEnabled = false
+        if (checkLocationPermission())
+            mMap.isMyLocationEnabled = true
         getLastKnownLocationAndSetMarker()
     }
 
@@ -149,8 +157,8 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         toggleConfirmButtonState(placeDetail != null)
     }
 
-    private fun checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(
+    private fun checkLocationPermission(): Boolean {
+        return if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
@@ -159,7 +167,8 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestLocationPermission()
-        }
+            false
+        } else true
     }
 
     private fun requestLocationPermission() {
@@ -183,6 +192,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestLocationPermission()
+            return
         }
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
@@ -190,6 +200,8 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
                     val lastKnownLatLng =
                         LatLng(it.latitude, it.longitude).also { latLng -> pickUpLatLng = latLng }
                     setMarkerAndAnimate(lastKnownLatLng)
+                    showAddressFetchingLoader()
+                    addressHandler.postDelayed(addressRunnable, 1500)
                 }
             }
     }
@@ -248,7 +260,26 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     }
 
     override fun onGeoCodeResult(placesDetail: PlacesDetail?) {
-        updateSearchResult(placesDetail)
+        if (placesDetail != null)
+            updateSearchResult(placesDetail)
+        else
+            pickUpLatLng?.let {
+                updateSearchResult(
+                    PlacesDetail(
+                        "${String.format("%.2f", it.latitude)}, ${
+                            String.format(
+                                "%.2f",
+                                it.longitude
+                            )
+                        }",
+                        getString(R.string.current_location),
+                        "",
+                        it.latitude,
+                        it.longitude
+                    )
+                )
+            }
+
         canGetAddress = false
         hideAddressFetchingLoader()
     }

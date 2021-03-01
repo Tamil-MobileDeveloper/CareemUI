@@ -7,7 +7,6 @@ import com.example.careemui.R
 import com.example.careemui.placeSearch.PlacesDetail
 import com.example.careemui.placeSearch.`interface`.OnGeoCodeResult
 import com.google.android.libraries.maps.model.LatLng
-import java.io.IOException
 import java.util.*
 
 
