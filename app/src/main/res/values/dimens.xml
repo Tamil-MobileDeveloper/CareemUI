@@ -61,6 +61,9 @@
     <dimen name="dp50">50dp</dimen>
     <dimen name="dp15">15dp</dimen>
     <dimen name="dp80">80dp</dimen>
+    <dimen name="dp35">35dp</dimen>
+    <dimen name="dp55">55dp</dimen>
+    <dimen name="dp17">17dp</dimen>
 
 
 </resources>

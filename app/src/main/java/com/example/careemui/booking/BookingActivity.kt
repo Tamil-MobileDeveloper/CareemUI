@@ -1,6 +1,14 @@
 package com.example.careemui.booking
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.careemui.R
 import com.example.careemui.booking.adapters.CarModelListAdapter
@@ -10,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -109,15 +118,51 @@ class BookingActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         )
         setAdapter()
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val marker1 = LatLng(-34.0, 151.0)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(marker1)
+                .anchor(.5f, .5f)
+                .icon(
+                    BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView("1", this))
+                )
+                .title("Marker in Sydney")
+        )
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker1))
+    }
+
+    private fun getMarkerBitmapFromView(time: String, c: Context): Bitmap? {
+        val customMarkerView: View =
+            (c.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
+                R.layout.layout_marker,
+                null
+            )
+        val time_to_reach = customMarkerView.findViewById<View>(R.id.markerText) as TextView
+        time_to_reach.text = "$time\nmin"
+        if (time == "0") time_to_reach.visibility = View.GONE else time_to_reach.visibility =
+            View.VISIBLE
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        customMarkerView.layout(
+            0,
+            0,
+            customMarkerView.measuredWidth,
+            customMarkerView.measuredHeight
+        )
+        customMarkerView.buildDrawingCache()
+        val returnedBitmap = Bitmap.createBitmap(
+            customMarkerView.measuredWidth, customMarkerView.measuredHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(returnedBitmap)
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        val drawable = customMarkerView.background
+        drawable?.draw(canvas)
+        customMarkerView.draw(canvas)
+        return returnedBitmap
     }
 
     private fun setAdapter() {
