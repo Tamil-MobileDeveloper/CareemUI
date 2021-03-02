@@ -39,10 +39,10 @@
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <View
-                android:layout_width="@dimen/dp50"
-                android:layout_height="@dimen/dp4"
-                android:layout_marginTop="@dimen/dp12"
-                android:background="@color/transparent"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp6"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@drawable/bottom_sheet_view_line"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,16 +52,17 @@
                 android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp15"
-                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp28"
                 android:layout_marginEnd="@dimen/dp15"
                 android:padding="@dimen/dp12"
                 android:text="@string/select_your_ride"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp23"
+                android:textSize="@dimen/sp25"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="0dp"

@@ -64,88 +64,80 @@ class BookingFragment : Fragment(), OnMapReadyCallback {
         val mapFragment: SupportMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
 
         carModelList.add(
             CarModelData(
                 R.drawable.car,
+                "Business",
+                "Premium service rides",
+                "1 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Careem Kids",
+                "Premium rides with Cybex child seats ",
+                "1 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Business",
+                "Premium service rides",
+                "1 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Careem Kids",
+                "Affordable SUV/MPV rides upto 4 people",
+                "1 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Careem Kids",
+                "Premium rides with Cybex child seats ",
+                "2 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Business",
+                "Premium service rides",
+                "1 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Careem Kids",
+                "Premium rides with Cybex child seats ",
+                "2 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
+                "Business",
+                "Premium service rides",
+                "1 min"
+            )
+        )
+        carModelList.add(
+            CarModelData(
+                R.drawable.car,
                 "Max",
                 "Rides upto 4 people",
-                "3 mins"
+                "2 min"
             )
         )
 
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
-        carModelList.add(
-            CarModelData(
-                R.drawable.car,
-                "Max",
-                "Rides upto 4 people",
-                "3 mins"
-            )
-        )
         setAdapter()
     }
 
