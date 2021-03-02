@@ -64,6 +64,7 @@
     <dimen name="dp35">35dp</dimen>
     <dimen name="dp55">55dp</dimen>
     <dimen name="dp17">17dp</dimen>
+    <dimen name="marker_size">120dp</dimen>
 
 
 </resources>

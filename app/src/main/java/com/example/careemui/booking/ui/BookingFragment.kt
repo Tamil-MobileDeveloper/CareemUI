@@ -1,9 +1,17 @@
 package com.example.careemui.booking.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.careemui.R
 import com.example.careemui.booking.adapters.CarModelListAdapter
@@ -157,23 +165,77 @@ class BookingFragment : Fragment(), OnMapReadyCallback {
         mMap?.let { googleMap ->
             pickUpPlaceDetail?.let {
                 val latLng = LatLng(it.latitude, it.longitude)
+                /*  googleMap.addMarker(
+                      MarkerOptions()
+                          .position(latLng)
+                          .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pickup_location_pin))
+                  )*/
                 googleMap.addMarker(
                     MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pickup_location_pin))
+                        .icon(
+                            BitmapDescriptorFactory.fromBitmap(
+                                getMarkerBitmapFromView(
+                                    "1",
+                                    requireActivity()
+                                )
+                            )
+                        )
                 )
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
             }
 
             dropPlaceDetail?.let {
-                val latLng = LatLng(it.latitude, it.longitude)
-                googleMap.addMarker(
+                /*  googleMap.addMarker(
                     MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin))
+                )*/
+                val latLng = LatLng(it.latitude, it.longitude)
+                val px = resources.getDimensionPixelSize(R.dimen.marker_size)
+                val filledMarkerBitmap = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
+                val canvas1 = Canvas(filledMarkerBitmap)
+                val shape1 = ContextCompat.getDrawable(requireActivity(), R.drawable.filled_marker);
+                shape1?.setBounds(0, 0, filledMarkerBitmap.width, filledMarkerBitmap.height)
+                shape1?.draw(canvas1)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromBitmap(filledMarkerBitmap))
                 )
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getMarkerBitmapFromView(time: String, context: Context): Bitmap? {
+        val customMarkerView: View =
+            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
+                R.layout.layout_marker,
+                null
+            )
+        val timeToReach = customMarkerView.findViewById<View>(R.id.markerText) as TextView
+        timeToReach.text = "$time\nmin"
+        if (time == "0") timeToReach.visibility = View.GONE else timeToReach.visibility =
+            View.VISIBLE
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        customMarkerView.layout(
+            0,
+            0,
+            customMarkerView.measuredWidth,
+            customMarkerView.measuredHeight
+        )
+        customMarkerView.buildDrawingCache()
+        val returnedBitmap = Bitmap.createBitmap(
+            customMarkerView.measuredWidth, customMarkerView.measuredHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(returnedBitmap)
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        val drawable = customMarkerView.background
+        drawable?.draw(canvas)
+        customMarkerView.draw(canvas)
+        return returnedBitmap
     }
 
     companion object {
