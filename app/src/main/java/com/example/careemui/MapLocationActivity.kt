@@ -16,6 +16,7 @@ import com.example.careemui.placeSearch.*
 import com.example.careemui.placeSearch.`interface`.OnGeoCodeResult
 import com.example.careemui.placeSearch.ui.DropLocationActivity
 import com.example.careemui.placeSearch.utils.GetAddressFromLatLng
+import com.example.careemui.placeSearch.utils.getMarkerBitmapFromView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.maps.CameraUpdateFactory
@@ -210,7 +211,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         mMap.addMarker(
             MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin))
+                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(this, "1")))
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
     }
@@ -219,7 +220,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         mMap.addMarker(
             MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_pin))
+                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(this, "1")))
         )
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
     }

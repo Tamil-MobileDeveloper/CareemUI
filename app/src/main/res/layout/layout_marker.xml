@@ -5,8 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/marker"
-    android:gravity="center_horizontal"
-    android:paddingVertical="@dimen/dp10"
+    android:gravity="center"
+    android:paddingBottom="-8dp"
     android:textColor="@color/black"
     android:textSize="@dimen/sp12"
-    tools:text="1"/>
+    tools:text="1" />

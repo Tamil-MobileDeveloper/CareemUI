@@ -18,5 +18,6 @@
     <string name="specification">rides up to 4 people</string>
     <string name="time">3 min(s)</string>
     <string name="carModel">CarModel</string>
+    <string name="marker_estimated_time">%1$s \nmin</string>
 
 </resources>
