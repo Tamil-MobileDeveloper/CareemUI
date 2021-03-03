@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp500"
             android:background="@drawable/bottom_sheet_background"
+            android:elevation="@dimen/dp15"
             app:behavior_hideable="false"
             app:behavior_peekHeight="@dimen/dp150"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">

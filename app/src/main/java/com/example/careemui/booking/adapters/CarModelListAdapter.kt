@@ -70,7 +70,6 @@ class CarModelListAdapter(
                     }
                     notifyDataSetChanged()
                 }
-
             }
         }
     }
