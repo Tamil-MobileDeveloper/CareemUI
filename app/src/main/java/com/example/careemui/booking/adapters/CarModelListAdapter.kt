@@ -3,7 +3,10 @@ package com.example.careemui.booking.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.careemui.R
 import com.example.careemui.booking.data.CarModelData
 import com.example.careemui.databinding.LayoutCarModelListBinding
 
@@ -37,12 +40,27 @@ class CarModelListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun setValue(carModelData: CarModelData, position: Int) {
             with(binding) {
-                this.ivImage.setImageResource(carModelData.image)
-                this.name.text = carModelData.name
-                this.specification.text = carModelData.specification
-                this.time.text = carModelData.time
+                ivImage.setImageResource(carModelData.image)
+                name.text = carModelData.name
+                specification.text = carModelData.specification
+                time.text = carModelData.time
                 if (mCheckedPosition == position) {
-                    this.cardView.isSelected = true
+                    cardView.isSelected = true
+                    val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.MATCH_PARENT,
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    params.setMargins(18, 10, 18, 10)
+                    cardView.layoutParams = params
+                    name.isSelected = true
+                    cardView.cardElevation = context.resources.getDimension(R.dimen.dp10)
+                    cardView.radius = context.resources.getDimension(R.dimen.dp10)
+                    cardView.preventCornerOverlap = true
+                    cardView.useCompatPadding = true
+                } else {
+                    cardView.cardElevation = context.resources.getDimension(R.dimen.dp0)
+                    cardView.isSelected = false
+                    name.isSelected = false
                 }
                 this.cardView.setOnClickListener {
                     mCheckedPosition = if (mCheckedPosition != position) {
@@ -52,7 +70,6 @@ class CarModelListAdapter(
                     }
                     notifyDataSetChanged()
                 }
-
             }
         }
     }

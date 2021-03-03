@@ -5,14 +5,7 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dp15"
-    android:layout_marginTop="@dimen/dp5"
-    android:layout_marginEnd="@dimen/dp15"
-    android:layout_marginBottom="@dimen/dp5"
-    app:cardBackgroundColor="@color/list_background_color"
-    app:cardCornerRadius="@dimen/dp10"
-    android:elevation="@dimen/dp10"
-   >
+    app:cardBackgroundColor="@color/list_background_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,43 +13,57 @@
 
         <ImageView
             android:id="@+id/iv_image"
-            android:layout_width="@dimen/dp80"
-            android:layout_height="@dimen/dp80"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100"
             android:contentDescription="@string/carModel"
+            android:padding="@dimen/dp8"
             android:src="@drawable/car"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="@dimen/dp10"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp10"
-            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/dp0"
+            android:layout_marginTop="@dimen/dp10"
+            android:padding="@dimen/dp8"
+            android:textColor="@color/selected_business_text_color"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toStartOf="@+id/time"
             app:layout_constraintStart_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/name" />
 
+
         <TextView
             android:id="@+id/specification"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp10"
-            app:layout_constraintStart_toEndOf="@+id/iv_image"
+            android:layout_marginBottom="@dimen/dp10"
+            android:paddingStart="@dimen/dp8"
+            android:paddingEnd="@dimen/dp8"
+            android:paddingBottom="@dimen/dp8"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/time"
+            app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="@string/specification" />
 
         <TextView
             android:id="@+id/time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:padding="@dimen/dp8"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/name"
             tools:text="@string/time" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
