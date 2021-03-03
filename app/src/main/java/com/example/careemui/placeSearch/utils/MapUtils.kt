@@ -63,13 +63,13 @@ fun getMarkerBitmapFromView(context: Context, estimatedTime: String): Bitmap? {
     drawable?.draw(canvas)
     customMarkerView.draw(canvas)
 
-    Handler().postDelayed({
+    /*Handler().postDelayed({
         val layerDrawable: LayerDrawable = timeToReach.background as LayerDrawable
         val drawables = layerDrawable.getDrawable(1) as RotateDrawable
         val mAnimator = ObjectAnimator.ofInt(drawables, "level", 0, 10000)
         mAnimator.duration = 5000
         mAnimator.start()
-    }, 3000)
+    }, 3000)*/
 
     return returnedBitmap
 }
