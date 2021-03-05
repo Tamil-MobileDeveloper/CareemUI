@@ -19,5 +19,8 @@
     <string name="time">3 min(s)</string>
     <string name="carModel">CarModel</string>
     <string name="marker_estimated_time">%1$s \nmin</string>
+    <string name="yalla">YALLA!</string>
+    <string name="select_business">Select Business</string>
+    <string name="confirm_drop_off">Confirm dropoff</string>
 
 </resources>

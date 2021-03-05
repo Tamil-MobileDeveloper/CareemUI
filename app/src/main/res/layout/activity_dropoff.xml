@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MapLocationActivity">
+
+    <fragment
+        android:id="@+id/mapView"
+        android:name="com.google.android.libraries.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp8"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow_back"
+        app:backgroundTint="@color/white"
+        app:fabSize="mini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mapView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp5"
+        android:text="@string/where_do_want_go"
+        android:textColor="@color/quantum_black_100"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fabBack" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardDropOffLocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp14"
+        app:cardCornerRadius="@dimen/dp8"
+        app:cardElevation="@dimen/dp8"
+        app:layout_constraintEnd_toEndOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rvDropOffLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dp7">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDropOffPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp16"
+                android:paddingVertical="@dimen/dp12"
+                android:tint="@color/green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_pick_up_filled" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSearchLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="@string/select_drop_off_location"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:text="Unnamed Road"
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey300"
+                android:textSize="@dimen/sp18"
+                app:layout_constraintBottom_toTopOf="@id/tvAddress"
+                app:layout_constraintEnd_toStartOf="@id/ivDropSearch"
+                app:layout_constraintStart_toEndOf="@id/ivDropOffPin"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp4"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:text="Unnamed Road - The Palm Jumeirah JumeirahJumeirahJumeirahJumeirahJumeirahJumeirahJumeirah"
+                android:textColor="@color/quantum_grey400"
+                android:textSize="@dimen/sp15"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ivDropSearch"
+                app:layout_constraintStart_toStartOf="@id/tvSearchLocation"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDropSearch"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="@dimen/dp8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_search"
+                app:tint="@color/quantum_grey300" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/progressAddress"
+        android:layout_width="@dimen/dp60"
+        android:layout_height="@dimen/dp60"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCurrentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp20"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_my_location"
+        app:backgroundTint="@color/white"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@id/btnConfirmLocation"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmLocation"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp60"
+        android:layout_marginVertical="@dimen/dp24"
+        android:backgroundTint="@color/green"
+        android:enabled="false"
+        android:paddingVertical="@dimen/dp10"
+        android:text="@string/confirm_drop_off"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp18"
+        app:cornerRadius="@dimen/dp24"
+        app:elevation="@dimen/dp8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardDropOffLocation"
+        app:layout_constraintStart_toStartOf="@id/cardDropOffLocation" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,14 +7,17 @@ import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.careemui.R
+import com.example.careemui.`interface`.CarBookingInterface
 import com.example.careemui.booking.data.CarModelData
 import com.example.careemui.databinding.LayoutCarModelListBinding
 
 class CarModelListAdapter(
     private var context: Context,
     private var carModelList: ArrayList<CarModelData>?,
-    private var mCheckedPosition: Int = -1
+    private var bookingInterface: CarBookingInterface,
+    private var mCheckedPosition: Int = -1,
 ) : RecyclerView.Adapter<CarModelListAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -57,16 +60,20 @@ class CarModelListAdapter(
                     cardView.radius = context.resources.getDimension(R.dimen.dp10)
                     cardView.preventCornerOverlap = true
                     cardView.useCompatPadding = true
+                    mCheckedPosition = -1
                 } else {
                     cardView.cardElevation = context.resources.getDimension(R.dimen.dp0)
                     cardView.isSelected = false
                     name.isSelected = false
                 }
                 this.cardView.setOnClickListener {
-                    mCheckedPosition = if (mCheckedPosition != position) {
-                        position
+                    if (mCheckedPosition != position) {
+                        mCheckedPosition = position
+                        if (cardView.isSelected) {
+                            bookingInterface.confirmBooking(carModelData)
+                        }
                     } else {
-                        -1
+                        mCheckedPosition = -1
                     }
                     notifyDataSetChanged()
                 }

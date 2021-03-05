@@ -2,6 +2,7 @@ package com.example.careemui.booking
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.careemui.booking.ui.BookingFragment
 import com.example.careemui.databinding.ActivityBookingBinding
 import com.example.careemui.placeSearch.PlacesDetail

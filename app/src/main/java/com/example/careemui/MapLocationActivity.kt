@@ -244,7 +244,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             addressHandler.removeCallbacks(addressRunnable)
             if (latLng.latitude != 0.0 && latLng.longitude != 0.0) {
                 showAddressFetchingLoader()
-                setMarkerForLocation(latLng)
+                (latLng)
                 pickUpLatLng = latLng
                 addressHandler.postDelayed(addressRunnable, 1500)
             }
