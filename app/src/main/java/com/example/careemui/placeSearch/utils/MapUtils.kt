@@ -12,6 +12,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.careemui.R
 import com.google.android.libraries.maps.CameraUpdateFactory
 import com.google.android.libraries.maps.GoogleMap
@@ -72,4 +73,14 @@ fun getMarkerBitmapFromView(context: Context, estimatedTime: String): Bitmap? {
     }, 3000)*/
 
     return returnedBitmap
+}
+
+fun getFilledMarkerBitmap(context: Context): Bitmap? {
+    val px = context.resources.getDimensionPixelSize(R.dimen.marker_size)
+    val filledMarkerBitmap = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
+    val canvas1 = Canvas(filledMarkerBitmap)
+    val shape1 = ContextCompat.getDrawable(context, R.drawable.filled_marker)
+    shape1?.setBounds(0, 0, filledMarkerBitmap.width, filledMarkerBitmap.height)
+    shape1?.draw(canvas1)
+    return filledMarkerBitmap
 }

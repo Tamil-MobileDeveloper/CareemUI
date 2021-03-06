@@ -1,20 +1,17 @@
 package com.example.careemui.booking.ui
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Trace.isEnabled
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.example.careemui.placeSearch.utils.getMarkerBitmapFromView
+import com.example.careemui.placeSearch.utils.getFilledMarkerBitmap
+import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
+import androidx.core.os.TraceCompat.isEnabled
 import androidx.fragment.app.Fragment
 import com.example.careemui.R
 import com.example.careemui.`interface`.CarBookingInterface
@@ -56,8 +53,7 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface {
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.bookingLayout.visibility == View.VISIBLE) {
-                    binding.bookingLayout.visibility = View.GONE
-                    binding.selectCarLayout.visibility = View.VISIBLE
+                    hideCardView()
                 } else {
                     isEnabled = false
                     activity?.onBackPressed()
@@ -119,66 +115,39 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface {
         mMap?.let { googleMap ->
             pickUpPlaceDetail?.let {
                 val latLng = LatLng(it.latitude, it.longitude)
+                setMarkerAndAnimate(latLng);
+            }
+            dropPlaceDetail?.let {
+                val latLng = LatLng(it.latitude, it.longitude)
                 googleMap.addMarker(
                     MarkerOptions()
                         .position(latLng)
                         .icon(
                             BitmapDescriptorFactory.fromBitmap(
-                                getMarkerBitmapFromView(
-                                    "1",
+                                getFilledMarkerBitmap(
                                     requireActivity()
                                 )
                             )
                         )
                 )
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
-            }
-
-            dropPlaceDetail?.let {
-                val latLng = LatLng(it.latitude, it.longitude)
-                val px = resources.getDimensionPixelSize(R.dimen.marker_size)
-                val filledMarkerBitmap = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
-                val canvas1 = Canvas(filledMarkerBitmap)
-                val shape1 = ContextCompat.getDrawable(requireActivity(), R.drawable.filled_marker);
-                shape1?.setBounds(0, 0, filledMarkerBitmap.width, filledMarkerBitmap.height)
-                shape1?.draw(canvas1)
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .icon(BitmapDescriptorFactory.fromBitmap(filledMarkerBitmap))
-                )
             }
         }
     }
 
-    private fun getMarkerBitmapFromView(time: String, context: Context): Bitmap? {
-        val customMarkerView: View =
-            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-                R.layout.layout_marker,
-                null
-            )
-        val timeToReach = customMarkerView.findViewById<View>(R.id.markerText) as TextView
-        timeToReach.text = "$time\nmin"
-        if (time == "0") timeToReach.visibility = View.GONE else timeToReach.visibility =
-            View.VISIBLE
-        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        customMarkerView.layout(
-            0,
-            0,
-            customMarkerView.measuredWidth,
-            customMarkerView.measuredHeight
+    private fun setMarkerAndAnimate(latLng: LatLng) {
+        mMap?.addMarker(
+            MarkerOptions()
+                .position(latLng)
+                .icon(
+                    BitmapDescriptorFactory.fromBitmap(
+                        getMarkerBitmapFromView(
+                            requireActivity(),
+                            "1"
+                        )
+                    )
+                )
         )
-        customMarkerView.buildDrawingCache()
-        val returnedBitmap = Bitmap.createBitmap(
-            customMarkerView.measuredWidth, customMarkerView.measuredHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(returnedBitmap)
-        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
-        val drawable = customMarkerView.background
-        drawable?.draw(canvas)
-        customMarkerView.draw(canvas)
-        return returnedBitmap
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
     }
 
     companion object {
@@ -201,17 +170,37 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface {
     }
 
     override fun confirmBooking(carModelData: CarModelData) {
-        Log.e("SelectedCarModel", carModelData.name)
+        Log.e("Selected CarModel", carModelData.name)
+        showAnimation()
         binding.bookingLayout.visibility = View.VISIBLE
         binding.selectCarLayout.visibility = View.GONE
     }
 
+    private fun showAnimation() {
+        binding.pickUpDropLocation.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireActivity(),
+                R.anim.slide_down
+            )
+        )
+        binding.cardBooking.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireActivity(),
+                R.anim.slide_up
+            )
+        )
+    }
+
     private fun onBackPress() {
         if (binding.bookingLayout.visibility == View.VISIBLE) {
-            binding.bookingLayout.visibility = View.GONE
-            binding.selectCarLayout.visibility = View.VISIBLE
+            hideCardView()
         } else {
             activity?.onBackPressed()
         }
+    }
+
+    private fun hideCardView() {
+        binding.selectCarLayout.visibility = View.VISIBLE
+        binding.bookingLayout.visibility = View.GONE
     }
 }

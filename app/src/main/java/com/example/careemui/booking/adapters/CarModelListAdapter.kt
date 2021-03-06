@@ -15,9 +15,7 @@ class CarModelListAdapter(
     private var context: Context,
     private var carModelList: ArrayList<CarModelData>?,
     private var bookingInterface: CarBookingInterface,
-    private var mCheckedPosition: Int = -1,
 ) : RecyclerView.Adapter<CarModelListAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -47,7 +45,7 @@ class CarModelListAdapter(
                 name.text = carModelData.name
                 specification.text = carModelData.specification
                 time.text = carModelData.time
-                if (mCheckedPosition == position) {
+                if (carModelData.mCheckedPosition == position) {
                     cardView.isSelected = true
                     val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
                         ConstraintLayout.LayoutParams.MATCH_PARENT,
@@ -60,20 +58,20 @@ class CarModelListAdapter(
                     cardView.radius = context.resources.getDimension(R.dimen.dp10)
                     cardView.preventCornerOverlap = true
                     cardView.useCompatPadding = true
-                    mCheckedPosition = -1
+                    carModelData.mCheckedPosition = -1
                 } else {
                     cardView.cardElevation = context.resources.getDimension(R.dimen.dp0)
                     cardView.isSelected = false
                     name.isSelected = false
                 }
-                this.cardView.setOnClickListener {
-                    if (mCheckedPosition != position) {
-                        mCheckedPosition = position
+                cardView.setOnClickListener {
+                    if (carModelData.mCheckedPosition != position) {
+                        carModelData.mCheckedPosition = position
                         if (cardView.isSelected) {
                             bookingInterface.confirmBooking(carModelData)
                         }
                     } else {
-                        mCheckedPosition = -1
+                        carModelData.mCheckedPosition = -1
                     }
                     notifyDataSetChanged()
                 }

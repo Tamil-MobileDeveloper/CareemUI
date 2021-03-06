@@ -4,5 +4,6 @@ data class CarModelData(
     val image: Int,
     val name: String,
     val specification: String,
-    val time: String
+    val time: String,
+    var mCheckedPosition: Int = -1
 )
