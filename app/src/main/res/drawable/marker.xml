@@ -17,7 +17,7 @@
             <shape android:shape="oval">
                 <stroke
                     android:width="@dimen/dp2"
-                    android:color="@color/dark_green" />
+                    android:color="@color/green" />
                 <size
                     android:width="@dimen/dp55"
                     android:height="@dimen/dp55" />
@@ -34,7 +34,7 @@
             <shape android:shape="line">
                 <stroke
                     android:width="@dimen/dp2"
-                    android:color="@color/dark_green" />
+                    android:color="@color/green" />
                 <size
                     android:width="@dimen/dp10"
                     android:height="@dimen/dp10" />
@@ -47,7 +47,7 @@
         <shape android:shape="oval">
             <stroke
                 android:width="@dimen/dp2"
-                android:color="@color/dark_green" />
+                android:color="@color/green" />
             <solid android:color="@color/white" />
             <size
                 android:width="@dimen/dp10"

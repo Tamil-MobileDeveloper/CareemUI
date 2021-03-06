@@ -3,5 +3,5 @@ package com.example.careemui.`interface`
 import com.example.careemui.booking.data.CarModelData
 
 interface CarBookingInterface {
-    fun confirmBooking(carModelData: CarModelData)
+    fun onModelSelect(carModelData: CarModelData, isModelReselected: Boolean)
 }

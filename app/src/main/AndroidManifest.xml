@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CareemUI">
 
-        <activity android:name=".MapLocationActivity">
+        <activity android:name=".PickUpLocationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

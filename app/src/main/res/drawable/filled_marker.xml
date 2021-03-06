@@ -5,14 +5,24 @@
     android:paddingBottom="@dimen/dp0">
     <item android:gravity="center">
         <shape android:shape="oval">
-            <stroke
-                android:width="@dimen/dp2"
-                android:color="@color/dark_green" />
-            <solid android:color="@color/dark_green" />
+            <solid android:color="@color/green" />
             <size
                 android:width="@dimen/dp55"
                 android:height="@dimen/dp55" />
         </shape>
+    </item>
+
+    <item android:gravity="center">
+        <animated-rotate>
+            <shape android:shape="oval">
+                <stroke
+                    android:width="@dimen/dp2"
+                    android:color="@color/green" />
+                <size
+                    android:width="@dimen/dp55"
+                    android:height="@dimen/dp55" />
+            </shape>
+        </animated-rotate>
     </item>
 
     <item
@@ -24,7 +34,7 @@
             <shape android:shape="line">
                 <stroke
                     android:width="@dimen/dp2"
-                    android:color="@color/dark_green" />
+                    android:color="@color/green" />
                 <size
                     android:width="@dimen/dp10"
                     android:height="@dimen/dp10" />
@@ -37,8 +47,8 @@
         <shape android:shape="oval">
             <stroke
                 android:width="@dimen/dp2"
-                android:color="@color/dark_green" />
-            <solid android:color="@color/dark_green" />
+                android:color="@color/green" />
+            <solid android:color="@color/green" />
             <size
                 android:width="@dimen/dp10"
                 android:height="@dimen/dp10" />

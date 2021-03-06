@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSelectBusiness"
+                android:id="@+id/btnSelectRide"
                 style="@style/PickUpButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp60"
@@ -79,7 +79,7 @@
                 android:enabled="true"
                 android:paddingHorizontal="@dimen/dp80"
                 android:paddingVertical="@dimen/dp10"
-                android:text="@string/select_business"
+                android:text="@string/select_ride_model"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp18"

@@ -67,9 +67,7 @@ class CarModelListAdapter(
                 cardView.setOnClickListener {
                     if (carModelData.mCheckedPosition != position) {
                         carModelData.mCheckedPosition = position
-                        if (cardView.isSelected) {
-                            bookingInterface.confirmBooking(carModelData)
-                        }
+                        bookingInterface.onModelSelect(carModelData, cardView.isSelected)
                     } else {
                         carModelData.mCheckedPosition = -1
                     }

@@ -1,14 +1,10 @@
 package com.example.careemui.placeSearch.utils
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.LayerDrawable
-import android.graphics.drawable.RotateDrawable
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -63,15 +59,6 @@ fun getMarkerBitmapFromView(context: Context, estimatedTime: String): Bitmap? {
     val drawable = customMarkerView.background
     drawable?.draw(canvas)
     customMarkerView.draw(canvas)
-
-    /*Handler().postDelayed({
-        val layerDrawable: LayerDrawable = timeToReach.background as LayerDrawable
-        val drawables = layerDrawable.getDrawable(1) as RotateDrawable
-        val mAnimator = ObjectAnimator.ofInt(drawables, "level", 0, 10000)
-        mAnimator.duration = 5000
-        mAnimator.start()
-    }, 3000)*/
-
     return returnedBitmap
 }
 

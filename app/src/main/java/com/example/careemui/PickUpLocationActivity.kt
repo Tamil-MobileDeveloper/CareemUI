@@ -11,7 +11,7 @@ import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.careemui.databinding.ActivityMapLocationBinding
+import com.example.careemui.databinding.ActivityPickUpLocationBinding
 import com.example.careemui.placeSearch.*
 import com.example.careemui.placeSearch.`interface`.OnGeoCodeResult
 import com.example.careemui.placeSearch.ui.DropLocationActivity
@@ -30,9 +30,10 @@ import com.google.android.libraries.maps.model.MarkerOptions
 private const val REQUEST_LOCATION_PERMISSION = 123
 private const val REQUEST_LOCATION_SEARCH = 124
 
-class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnCameraIdleListener,
+class PickUpLocationActivity : AppCompatActivity(), OnMapReadyCallback,
+    GoogleMap.OnCameraIdleListener,
     GoogleMap.OnCameraMoveStartedListener, OnGeoCodeResult {
-    private lateinit var binding: ActivityMapLocationBinding
+    private lateinit var binding: ActivityPickUpLocationBinding
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val addressHandler by lazy { Handler(Looper.getMainLooper()) }
@@ -49,7 +50,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMapLocationBinding.inflate(layoutInflater)
+        binding = ActivityPickUpLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initializeMap()
@@ -64,7 +65,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             cardPickUpLocation.setOnClickListener {
                 startActivityForResult(
                     Intent(
-                        this@MapLocationActivity,
+                        this@PickUpLocationActivity,
                         LocationSearchActivity::class.java
                     ).apply {
                         putExtras(Bundle().apply {
@@ -77,7 +78,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             btnConfirmLocation.setOnClickListener {
                 startActivity(
                     Intent(
-                        this@MapLocationActivity,
+                        this@PickUpLocationActivity,
                         DropLocationActivity::class.java
                     ).apply {
                         putExtras(Bundle().apply {
@@ -134,7 +135,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
                     updateSearchResult(
                         it.extras?.getParcelable(
                             ARG_PLACE_SEARCH_DETAIL
-                        )
+                        ), setMarkerAndAnimate = true
                     )
                 }
             }
@@ -146,7 +147,10 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         mapFragment.getMapAsync(this)
     }
 
-    private fun updateSearchResult(placeDetail: PlacesDetail?) {
+    private fun updateSearchResult(
+        placeDetail: PlacesDetail?,
+        setMarkerAndAnimate: Boolean = false
+    ) {
         placeDetail?.let {
             this.placeDetail = it
             with(binding) {
@@ -154,6 +158,8 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
                 tvAddress.text = it.address
                 tvAddress.visibility = View.VISIBLE
             }
+            if (setMarkerAndAnimate)
+                setMarkerAndAnimate(it.latLng)
         }
         toggleConfirmButtonState(placeDetail != null)
     }
@@ -244,7 +250,7 @@ class MapLocationActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             addressHandler.removeCallbacks(addressRunnable)
             if (latLng.latitude != 0.0 && latLng.longitude != 0.0) {
                 showAddressFetchingLoader()
-                (latLng)
+                setMarkerForLocation(latLng)
                 pickUpLatLng = latLng
                 addressHandler.postDelayed(addressRunnable, 1500)
             }

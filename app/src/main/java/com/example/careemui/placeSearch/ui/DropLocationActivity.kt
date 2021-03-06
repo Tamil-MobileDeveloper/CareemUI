@@ -19,6 +19,7 @@ import com.example.careemui.databinding.ActivityDropLocationBinding
 import com.example.careemui.placeSearch.*
 import com.example.careemui.placeSearch.`interface`.OnGeoCodeResult
 import com.example.careemui.placeSearch.utils.GetAddressFromLatLng
+import com.example.careemui.placeSearch.utils.getMarkerBitmapFromView
 import com.example.careemui.placeSearch.utils.resetCameraBearing
 import com.example.careemui.placeSearch.utils.updateCameraBearing
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -85,7 +86,12 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
                     Intent(
                         this@DropLocationActivity,
                         BookingActivity::class.java
-                    )
+                    ).apply {
+                        putExtras(Bundle().apply {
+                            putParcelable(ARG_PICK_UP_DETAIL, placeDetail)
+                            putParcelable(ARG_DROP_DETAIL, dropPlaceDetail)
+                        })
+                    }
                 )
             }
             btnSkip.setOnClickListener {
@@ -131,15 +137,21 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private fun setMarkerForPickUp() {
         placeDetail?.let {
-            val latLng = LatLng(it.latitude, it.longitude)
             mMap?.let { googleMap ->
                 googleMap.addMarker(
                     MarkerOptions()
-                        .position(latLng)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pickup_location_pin))
+                        .position(it.latLng)
+                        .icon(
+                            BitmapDescriptorFactory.fromBitmap(
+                                getMarkerBitmapFromView(
+                                    this,
+                                    "1"
+                                )
+                            )
+                        )
                 )
 
-                val pickUp = LatLng(latLng.latitude - 0.0004, latLng.longitude + 0.0004)
+                val pickUp = LatLng(it.latLng.latitude - 0.0004, it.latLng.longitude + 0.0004)
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pickUp, 17.0f))
 
             }
