@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".PickUpLocationActivity">
 
     <fragment
@@ -18,7 +17,8 @@
         android:id="@+id/fabMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp8"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp40"
         android:contentDescription="@null"
         android:src="@drawable/ic_menu"
         app:backgroundTint="@color/white"

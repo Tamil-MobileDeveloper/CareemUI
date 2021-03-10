@@ -152,10 +152,8 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
                 )
 
                 val pickUp = LatLng(it.latLng.latitude - 0.0004, it.latLng.longitude + 0.0004)
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pickUp, 17.0f))
-
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pickUp, 17.0f))
             }
-
         }
     }
 
@@ -298,7 +296,6 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
                 }
             }
         }
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

@@ -69,6 +69,11 @@
     <dimen name="dp100">100dp</dimen>
     <dimen name="dp70">70dp</dimen>
     <dimen name="dp18">18dp</dimen>
+    <dimen name="dp300">300dp</dimen>
+    <dimen name="dp250">250dp</dimen>
+    <dimen name="dp700">700dp</dimen>
+    <dimen name="dp600">600dp</dimen>
+    <dimen name="dp120">120dp</dimen>
 
 
 </resources>

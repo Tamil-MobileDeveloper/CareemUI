@@ -28,7 +28,7 @@ import com.google.android.libraries.maps.model.LatLng
 import com.google.android.libraries.maps.model.MarkerOptions
 
 private const val REQUEST_LOCATION_PERMISSION = 123
-private const val REQUEST_LOCATION_SEARCH = 124
+private const val REQUEST_LOCATION_SEARCH = 125
 
 class PickUpLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnCameraIdleListener,

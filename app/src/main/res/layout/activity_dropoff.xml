@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".PickUpLocationActivity">
 
     <fragment
@@ -17,7 +16,8 @@
         android:id="@+id/fabBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp8"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp40"
         android:contentDescription="@null"
         android:src="@drawable/ic_arrow_back"
         app:backgroundTint="@color/white"
@@ -77,32 +77,31 @@
                 android:hint="@string/select_drop_off_location"
                 android:maxLines="1"
                 android:paddingEnd="@dimen/dp24"
-                android:text="Unnamed Road"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey300"
                 android:textSize="@dimen/sp18"
                 app:layout_constraintBottom_toTopOf="@id/tvAddress"
                 app:layout_constraintEnd_toStartOf="@id/ivDropSearch"
                 app:layout_constraintStart_toEndOf="@id/ivDropOffPin"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Unnamed Road" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp4"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:focusable="false"
                 android:maxLines="1"
                 android:paddingEnd="@dimen/dp24"
-                android:text="Unnamed Road - The Palm Jumeirah JumeirahJumeirahJumeirahJumeirahJumeirahJumeirahJumeirah"
                 android:textColor="@color/quantum_grey400"
-                android:textSize="@dimen/sp15"
-                android:visibility="visible"
+                android:textSize="@dimen/sp16"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ivDropSearch"
                 app:layout_constraintStart_toStartOf="@id/tvSearchLocation"
+                tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road"
                 tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -117,6 +116,18 @@
                 app:tint="@color/quantum_grey300" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPickLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pick_up_filled"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressAddress"
@@ -140,15 +151,15 @@
         android:src="@drawable/ic_my_location"
         app:backgroundTint="@color/white"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@id/btnConfirmLocation"
+        app:layout_constraintBottom_toTopOf="@id/btnConfirmDropOff"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnConfirmLocation"
+        android:id="@+id/btnConfirmDropOff"
+        style="@style/PickUpButtonStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp60"
         android:layout_marginVertical="@dimen/dp24"
-        android:backgroundTint="@color/green"
         android:enabled="false"
         android:paddingVertical="@dimen/dp10"
         android:text="@string/confirm_drop_off"
@@ -160,6 +171,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/cardDropOffLocation"
         app:layout_constraintStart_toStartOf="@id/cardDropOffLocation" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

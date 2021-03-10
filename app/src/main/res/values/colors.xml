@@ -14,7 +14,8 @@
 
     <color name="text_color_light">#a2a2a2</color>
     <color name="green">#4CAF50</color>
-    <color name="transparent">#88666666</color>
+    <color name="transparent">#88BAB9B9</color>
+    <color name="lightTransparent">#88FDFDFD</color>
     <color name="lightGrey">#C8CED5</color>
     <color name="grey">#A9ACB1</color>
     <color name="light_white">#FAF9F9</color>

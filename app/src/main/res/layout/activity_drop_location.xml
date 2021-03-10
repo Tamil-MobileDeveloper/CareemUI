@@ -5,7 +5,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".placeSearch.ui.DropLocationActivity">
 
     <fragment
@@ -18,7 +17,8 @@
         android:id="@+id/fabBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp8"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp40"
         android:contentDescription="@null"
         android:src="@drawable/ic_arrow_back"
         app:backgroundTint="@color/white"
