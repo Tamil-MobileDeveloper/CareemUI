@@ -13,45 +13,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginTop="@dimen/dp40"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_arrow_back"
-        app:backgroundTint="@color/white"
-        app:fabSize="mini"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/map" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvCurrentLocation"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingEnd="@dimen/dp24"
-        android:text="@string/select_drop_off_location"
-        android:textColor="@color/quantum_black_100"
-        android:textSize="@dimen/sp20"
-        app:layout_constraintBottom_toBottomOf="@id/fabBack"
+        android:paddingBottom="@dimen/dp70"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/fabBack"
-        app:layout_constraintTop_toTopOf="@id/fabBack" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/map">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp40"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_arrow_back"
+            app:backgroundTint="@color/white"
+            app:fabSize="mini"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCurrentLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingEnd="@dimen/dp24"
+            android:text="@string/select_drop_off_location"
+            android:textColor="@color/quantum_black_100"
+            android:textSize="@dimen/sp20"
+            app:layout_constraintBottom_toBottomOf="@id/fabBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fabBack"
+            app:layout_constraintTop_toTopOf="@id/fabBack" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPickUpLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp12"
-        android:layout_marginTop="@dimen/dp14"
+        android:layout_marginTop="@dimen/dp100"
         android:clipChildren="true"
         app:cardCornerRadius="@dimen/dp8"
         app:cardElevation="@dimen/dp8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fabBack">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rvPickUpLocation"

@@ -74,6 +74,7 @@
     <dimen name="dp700">700dp</dimen>
     <dimen name="dp600">600dp</dimen>
     <dimen name="dp120">120dp</dimen>
+    <dimen name="dp110">110dp</dimen>
 
 
 </resources>

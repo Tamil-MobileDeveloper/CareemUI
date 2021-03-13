@@ -13,18 +13,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBack"
-        android:layout_width="wrap_content"
+    <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/fabBack"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="@dimen/dp8"
+         android:layout_marginTop="@dimen/dp40"
+         android:contentDescription="@null"
+         android:src="@drawable/ic_arrow_back"
+         app:backgroundTint="@color/white"
+         app:fabSize="mini"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@id/map" />-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginTop="@dimen/dp40"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_arrow_back"
-        app:backgroundTint="@color/white"
-        app:fabSize="mini"
+        android:paddingBottom="@dimen/dp70"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/map" />
+        app:layout_constraintTop_toTopOf="@id/map">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp40"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_arrow_back"
+            app:backgroundTint="@color/white"
+            app:fabSize="mini"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSelectRide"
@@ -120,235 +142,189 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPickUpDropLocation"
-        android:layout_width="@dimen/dp0"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp12"
+        android:layout_marginTop="@dimen/dp100"
+        android:clipChildren="true"
         android:visibility="gone"
+        app:cardCornerRadius="@dimen/dp8"
+        app:cardElevation="@dimen/dp8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardPickUpLocation"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rvPickUpLocation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp12"
-            android:layout_marginTop="@dimen/dp100"
-            android:layout_marginBottom="@dimen/dp3"
-            android:clipChildren="true"
-            app:cardCornerRadius="@dimen/dp8"
-            app:cardElevation="@dimen/dp8"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingVertical="@dimen/dp10">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rvPickUpLocation"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPickUpPin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp10">
+                android:paddingHorizontal="@dimen/dp16"
+                android:paddingVertical="@dimen/dp6"
+                app:layout_constraintBottom_toBottomOf="@id/tvPickUpAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_pickup_circle" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivPickUpPin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/dp16"
-                    android:paddingVertical="@dimen/dp6"
-                    app:layout_constraintBottom_toBottomOf="@id/tvPickUpAddress"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_pickup_circle" />
+            <View
+                android:id="@+id/viewPickUpDrop"
+                android:layout_width="@dimen/dp2"
+                android:layout_height="0dp"
+                android:background="@color/green"
+                app:layout_constraintBottom_toTopOf="@id/ivDropPin"
+                app:layout_constraintEnd_toEndOf="@id/ivPickUpPin"
+                app:layout_constraintStart_toStartOf="@id/ivPickUpPin"
+                app:layout_constraintTop_toBottomOf="@id/ivPickUpPin" />
 
-                <View
-                    android:id="@+id/viewPickUpDrop"
-                    android:layout_width="@dimen/dp2"
-                    android:layout_height="0dp"
-                    android:background="@color/green"
-                    app:layout_constraintBottom_toTopOf="@id/ivDropPin"
-                    app:layout_constraintEnd_toEndOf="@id/ivPickUpPin"
-                    app:layout_constraintStart_toStartOf="@id/ivPickUpPin"
-                    app:layout_constraintTop_toBottomOf="@id/ivPickUpPin" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDropPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp16"
+                android:paddingVertical="@dimen/dp6"
+                app:layout_constraintBottom_toBottomOf="@id/tvDropAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvDropLabel"
+                app:srcCompat="@drawable/ic_pick_up_filled"
+                app:tint="@color/green" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivDropPin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/dp16"
-                    android:paddingVertical="@dimen/dp6"
-                    app:layout_constraintBottom_toBottomOf="@id/tvDropAddress"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvDropLabel"
-                    app:srcCompat="@drawable/ic_pick_up_filled"
-                    app:tint="@color/green" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPickUpLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp20"
+                app:layout_constraintEnd_toStartOf="@+id/tvEditDetails"
+                app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Home" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvPickUpLocation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:ellipsize="end"
-                    android:focusable="false"
-                    android:maxLines="1"
-                    android:paddingEnd="@dimen/dp24"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp20"
-                    app:layout_constraintEnd_toStartOf="@+id/tvEditDetails"
-                    app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Home" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPickUpAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:textColor="@color/quantum_grey400"
+                android:textSize="@dimen/sp14"
+                app:layout_constraintEnd_toStartOf="@+id/tvEditDetails"
+                app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
+                app:layout_constraintTop_toBottomOf="@id/tvPickUpLocation"
+                tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvPickUpAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:ellipsize="end"
-                    android:focusable="false"
-                    android:maxLines="1"
-                    android:paddingEnd="@dimen/dp24"
-                    android:textColor="@color/quantum_grey400"
-                    android:textSize="@dimen/sp14"
-                    app:layout_constraintEnd_toStartOf="@+id/tvEditDetails"
-                    app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
-                    app:layout_constraintTop_toBottomOf="@id/tvPickUpLocation"
-                    tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEditDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp16"
+                android:text="EDIT DETAILS"
+                android:textColor="@color/quantum_grey400"
+                android:textSize="@dimen/sp14"
+                app:layout_constraintBottom_toBottomOf="@id/tvPickUpAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvEditDetails"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:ellipsize="end"
-                    android:focusable="true"
-                    android:maxLines="1"
-                    android:paddingEnd="@dimen/dp16"
-                    android:text="EDIT DETAILS"
-                    android:textColor="@color/quantum_grey400"
-                    android:textSize="@dimen/sp14"
-                    app:layout_constraintBottom_toBottomOf="@id/tvPickUpAddress"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/separatorView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp1"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@color/quantum_grey100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvPickUpLocation"
+                app:layout_constraintTop_toBottomOf="@id/tvPickUpAddress" />
 
-                <View
-                    android:id="@+id/separatorView"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/dp1"
-                    android:layout_marginTop="@dimen/dp8"
-                    android:background="@color/quantum_grey100"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tvPickUpLocation"
-                    app:layout_constraintTop_toBottomOf="@id/tvPickUpAddress" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDropLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="@string/select_drop_off_location"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:paddingBottom="@dimen/dp4"
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey300"
+                android:textSize="@dimen/sp20"
+                app:layout_constraintBottom_toTopOf="@id/tvDropAddress"
+                app:layout_constraintEnd_toStartOf="@id/ivFavorite"
+                app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
+                app:layout_constraintTop_toBottomOf="@id/separatorView"
+                app:layout_constraintVertical_bias="1"
+                tools:text="" />
 
-                <!-- <androidx.appcompat.widget.AppCompatTextView
-                     android:id="@+id/tvDropLabel"
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="@dimen/dp4"
-                     android:clickable="false"
-                     android:ellipsize="end"
-                     android:focusable="false"
-                     android:maxLines="1"
-                     android:paddingEnd="@dimen/dp24"
-                     android:textColor="@color/black"
-                     android:textSize="@dimen/sp20"
-                     app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
-                     app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
-                     app:layout_constraintTop_toBottomOf="@id/separatorView"
-                     tools:text="UnNamed Road" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDropAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/dp24"
+                android:textColor="@color/quantum_grey300"
+                android:textSize="@dimen/sp14"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ivFavorite"
+                app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road"
+                tools:visibility="gone" />
 
-                 <androidx.appcompat.widget.AppCompatTextView
-                     android:id="@+id/tvDropAddress"
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:clickable="false"
-                     android:ellipsize="end"
-                     android:focusable="false"
-                     android:maxLines="1"
-                     android:paddingEnd="@dimen/dp24"
-                     android:paddingBottom="@dimen/dp4"
-                     android:textColor="@color/quantum_grey400"
-                     android:textSize="@dimen/sp14"
-                     app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
-                     app:layout_constraintStart_toStartOf="@id/tvDropLabel"
-                     app:layout_constraintTop_toBottomOf="@id/tvDropLabel"
-                     tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road" />
- -->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvDropLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp8"
-                    android:clickable="false"
-                    android:ellipsize="end"
-                    android:focusable="false"
-                    android:hint="@string/select_drop_off_location"
-                    android:maxLines="1"
-                    android:paddingEnd="@dimen/dp24"
-                    android:paddingBottom="@dimen/dp4"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/quantum_grey300"
-                    android:textSize="@dimen/sp20"
-                    app:layout_constraintBottom_toTopOf="@id/tvDropAddress"
-                    app:layout_constraintEnd_toStartOf="@id/ivFavorite"
-                    app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
-                    app:layout_constraintTop_toBottomOf="@id/separatorView"
-                    app:layout_constraintVertical_bias="1"
-                    tools:text="" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp2"
+                android:layout_marginEnd="@dimen/dp8"
+                android:padding="@dimen/dp8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvDropLabel"
+                app:srcCompat="@drawable/ic_like"
+                app:tint="@color/quantum_grey300" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvDropAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:ellipsize="end"
-                    android:focusable="false"
-                    android:maxLines="1"
-                    android:paddingEnd="@dimen/dp24"
-                    android:textColor="@color/quantum_grey300"
-                    android:textSize="@dimen/sp14"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/ivFavorite"
-                    app:layout_constraintStart_toEndOf="@id/ivPickUpPin"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:text="Umi Sushi - Jumeirah Beach Road - Dubai Main road"
-                    tools:visibility="gone" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivFavorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp2"
-                    android:layout_marginEnd="@dimen/dp8"
-                    android:padding="@dimen/dp8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvDropLabel"
-                    app:srcCompat="@drawable/ic_like"
-                    app:tint="@color/quantum_grey300" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardBookingDetails"
-        android:layout_width="@dimen/dp0"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp10"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/cardPickUpDropLocation"
-        app:layout_constraintStart_toStartOf="@id/cardPickUpDropLocation">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/selectedCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp12"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_marginBottom="@dimen/dp5"
+            android:layout_marginVertical="@dimen/dp5"
             android:clipChildren="true"
             app:cardCornerRadius="@dimen/dp8"
             app:cardElevation="@dimen/dp8"

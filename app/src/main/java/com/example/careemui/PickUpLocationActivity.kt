@@ -4,13 +4,17 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.careemui.databinding.ActivityPickUpLocationBinding
 import com.example.careemui.placeSearch.*
 import com.example.careemui.placeSearch.`interface`.OnGeoCodeResult
@@ -52,9 +56,20 @@ class PickUpLocationActivity : AppCompatActivity(), OnMapReadyCallback,
         super.onCreate(savedInstanceState)
         binding = ActivityPickUpLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            }
+        }
+        binding.cardView.background =
+            ContextCompat.getDrawable(this, R.drawable.map_gradient_drawable)
 
         initializeMap()
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         checkLocationPermission()
     }
@@ -108,6 +123,7 @@ class PickUpLocationActivity : AppCompatActivity(), OnMapReadyCallback,
         mMap = googleMap
         mMap.setOnCameraIdleListener(this)
         mMap.setOnCameraMoveStartedListener(this)
+        mMap.setPadding(10,0,0,160)
         mMap.uiSettings.isMyLocationButtonEnabled = false
         if (checkLocationPermission())
             mMap.isMyLocationEnabled = true

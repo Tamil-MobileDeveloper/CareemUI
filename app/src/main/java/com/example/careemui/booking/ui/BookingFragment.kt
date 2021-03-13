@@ -95,6 +95,16 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
                 }
             }
         })
+        activity?.window?.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            }
+        }
     }
 
     override fun onCreateView(
@@ -113,6 +123,9 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
 
         setPickUpDropAddress(pickUpPlaceDetail, dropPlaceDetail)
 
+        binding.cardView.background =
+            ContextCompat.getDrawable(requireActivity(), R.drawable.map_gradient_drawable)
+
         for (i in 0 until 10) {
             carModelList.add(
                 (CarModelData(
@@ -128,7 +141,6 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
         }
         setAdapter()
         setSpinnerList()
-
     }
 
     private fun setPickUpDropAddress(
@@ -239,6 +251,7 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap?.let {
+            it.setPadding(10, 0, 0, 380)
             setPickUpDropMarker(it)
         }
     }
@@ -333,13 +346,13 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
             }
 
             override fun onAnimationEnd(p0: Animation?) {
-                activity?.window?.apply {
-                    addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                    addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-                    statusBarColor =
-                        ContextCompat.getColor(requireActivity(), android.R.color.transparent)
-                }
+                /*  activity?.window?.apply {
+                      addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                      addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                      clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+                      statusBarColor =
+                          ContextCompat.getColor(requireActivity(), android.R.color.transparent)
+                  }*/
                 binding.btnSelectRide.visibility = View.VISIBLE
                 binding.cardPickUpDropLocation.visibility = View.GONE
                 binding.cardBookingDetails.visibility = View.GONE
@@ -374,18 +387,21 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
     }
 
     private fun showAnimation() {
+        /* activity?.window?.apply {
+             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                 decorView.systemUiVisibility =
+                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+             } else {
+                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+             }
+         }*/
+        binding.selectCarLayout.visibility = View.GONE
         binding.btnSelectRide.visibility = View.GONE
-        activity?.window?.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = ContextCompat.getColor(requireActivity(), R.color.transparent)
-        }
-        binding.cardPickUpDropLocation.background =
-            ContextCompat.getDrawable(requireActivity(), R.drawable.map_gradient_drawable)
         binding.cardPickUpDropLocation.visibility = View.VISIBLE
         binding.cardBookingDetails.visibility = View.VISIBLE
-        binding.selectCarLayout.visibility = View.GONE
+
         binding.cardPickUpDropLocation.startAnimation(
             AnimationUtils.loadAnimation(
                 requireActivity(),

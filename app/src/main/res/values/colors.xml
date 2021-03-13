@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="colorPrimary">#D3A33F</color>
     <color name="colorSecondary">#030446</color>
 
@@ -11,12 +10,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="text_color_light">#a2a2a2</color>
     <color name="green">#4CAF50</color>
-    <color name="transparent">#88BAB9B9</color>
-    <color name="lightTransparent">#88FDFDFD</color>
+    <color name="transparent">#CBFDFDFD</color>
+    <color name="lightTransparent">#CBE4ECF3</color>
     <color name="lightGrey">#C8CED5</color>
     <color name="grey">#A9ACB1</color>
     <color name="light_white">#FAF9F9</color>
+    <!--
+        <color name="transparent">#88BAB9B9</color>
+        <color name="lightTransparent">#88FDFDFD</color>
+    -->
 </resources>
