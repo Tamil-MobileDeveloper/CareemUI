@@ -120,12 +120,7 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
         val mapFragment: SupportMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
         setPickUpDropAddress(pickUpPlaceDetail, dropPlaceDetail)
-
-        binding.cardView.background =
-            ContextCompat.getDrawable(requireActivity(), R.drawable.map_gradient_drawable)
-
         for (i in 0 until 10) {
             carModelList.add(
                 (CarModelData(
@@ -139,8 +134,19 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
         for (i in 0 until 5) {
             spinnerList.add(if (i == 0) "Select" else if (i % 2 == 0) "AED 30-40" else "AED 35-45")
         }
+        showAnimatedList()
         setAdapter()
         setSpinnerList()
+    }
+
+    private fun showAnimatedList() {
+        binding.cardView.background = ContextCompat.getDrawable(requireActivity(), R.drawable.map_gradient_drawable)
+        binding.bottomSheet.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireActivity(),
+                R.anim.slide_up
+            )
+        )
     }
 
     private fun setPickUpDropAddress(
@@ -251,7 +257,6 @@ class BookingFragment : Fragment(), OnMapReadyCallback, CarBookingInterface,
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap?.let {
-            it.setPadding(10, 0, 0, 380)
             setPickUpDropMarker(it)
         }
     }

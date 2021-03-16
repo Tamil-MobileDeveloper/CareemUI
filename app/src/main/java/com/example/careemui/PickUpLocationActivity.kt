@@ -123,7 +123,6 @@ class PickUpLocationActivity : AppCompatActivity(), OnMapReadyCallback,
         mMap = googleMap
         mMap.setOnCameraIdleListener(this)
         mMap.setOnCameraMoveStartedListener(this)
-        mMap.setPadding(10,0,0,160)
         mMap.uiSettings.isMyLocationButtonEnabled = false
         if (checkLocationPermission())
             mMap.isMyLocationEnabled = true

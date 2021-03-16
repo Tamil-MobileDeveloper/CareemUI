@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CareemUI">
 
-        <activity android:name=".PickUpLocationActivity">
+        <activity android:name=".PickUpDropLocationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,7 @@
         <activity android:name=".placeSearch.LocationSearchActivity" />
         <activity android:name=".placeSearch.ui.DropLocationActivity" />
         <activity android:name=".booking.BookingActivity" />
-        <activity android:name=".booking.DropOffActivity"/>
+        <activity android:name=".booking.DropOffActivity" />
     </application>
 
 </manifest>

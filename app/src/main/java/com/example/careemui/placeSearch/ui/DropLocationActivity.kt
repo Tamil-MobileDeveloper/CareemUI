@@ -317,7 +317,6 @@ class DropLocationActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap?.let {
-            it.setPadding(10, 0, 0, 160)
             it.setOnCameraIdleListener(this)
             it.setOnCameraMoveStartedListener(this)
             it.uiSettings.isMyLocationButtonEnabled = false

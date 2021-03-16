@@ -11,6 +11,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -64,9 +66,7 @@ class DropOffActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnCam
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             }
         }
-        binding.cardView.background =
-            ContextCompat.getDrawable(this, R.drawable.map_gradient_drawable)
-
+        showAnimation()
         initializeMap()
         handleIntentValues()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -76,7 +76,7 @@ class DropOffActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnCam
         super.onResume()
         with(binding) {
             fabBack.setOnClickListener {
-                finish()
+                hideAnimation()
             }
             cardDropOffLocation.setOnClickListener {
                 startActivityForResult(
@@ -102,9 +102,59 @@ class DropOffActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnCam
                         putParcelable(ARG_CONFIRM_DROP_OFF_DETAIL, placeDetail)
                     })
                 })
-                finish()
+                hideAnimation()
+//                finish()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        hideAnimation()
+    }
+
+    private fun showAnimation() {
+        binding.cardView.background =
+            ContextCompat.getDrawable(this, R.drawable.map_gradient_drawable)
+
+        binding.cardDropOff.startAnimation(
+            AnimationUtils.loadAnimation(
+                this,
+                R.anim.slide_down
+            )
+        )
+        binding.btnDropOff.startAnimation(
+            AnimationUtils.loadAnimation(
+                this,
+                R.anim.slide_up
+            )
+        )
+    }
+
+    private fun hideAnimation() {
+        val mSlideDownAnim = AnimationUtils.loadAnimation(
+            this@DropOffActivity,
+            R.anim.slide_down_out
+        )
+        binding.cardDropOff.startAnimation(mSlideDownAnim)
+        binding.btnDropOff.startAnimation(
+            AnimationUtils.loadAnimation(
+                this@DropOffActivity,
+                R.anim.slide_up_out
+            )
+        )
+        mSlideDownAnim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(p0: Animation?) {
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.cardDropOff.visibility = View.GONE
+                binding.btnDropOff.visibility = View.GONE
+                finish()
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -115,7 +165,6 @@ class DropOffActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnCam
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.let {
-            it.setPadding(10, 0, 0, 160)
             it.setOnCameraIdleListener(this)
             it.setOnCameraMoveStartedListener(this)
             it.uiSettings.isMyLocationButtonEnabled = false
